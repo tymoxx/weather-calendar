@@ -13,3 +13,14 @@ body {
   margin: 0;
   display: flex;
 }
+
+/* React Date Picker Custom Styling */
+.react-datepicker {
+    font-size: 14px;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.react-datepicker__header  {
+    background-color: transparent;
+}

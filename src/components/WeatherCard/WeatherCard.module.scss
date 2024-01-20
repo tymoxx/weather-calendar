@@ -8,20 +8,21 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  .weatherStatusSection {
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+  }
+
   .icon {
     width: 50px;
+    margin-right: 20px;
     height: auto;
     transition: transform 0.06s ease-in-out;
   }
 
   .date {
     color: #1d5362;
-  }
-
-  &:hover {
-    .icon {
-      transform: scale(1.4);
-    }
   }
 
   span {

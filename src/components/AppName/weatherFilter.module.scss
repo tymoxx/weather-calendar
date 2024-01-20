@@ -1,0 +1,27 @@
+.optionsWrapper {
+    margin-right: 40px;
+}
+.optionsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.weatherFilterHeader {
+    font-size: 1.2em;
+    color: #444;
+}
+.option {
+    img {
+        width: 50px;
+    }
+    transition: transform 0.1s ease-in-out;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+    }
+    filter: grayscale(100%);
+}
+
+.selected {
+    filter: grayscale(0);
+}

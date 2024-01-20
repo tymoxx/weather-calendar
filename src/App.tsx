@@ -1,57 +1,77 @@
 import style from './App.module.scss';
-import {WeatherCard} from "./components/WeatherCard/WeatherCard.tsx";
-import {WeatherDatePicker} from "./components/WeatherDatePicker/WeatherDatePicker.tsx";
-import {AppName} from "./components/AppName/AppName.tsx";
-import { useState } from "react";
-import {DatePickerDates} from "./types.ts";
-import {data} from "./data/data.ts";
+import { WeatherCard } from './components/WeatherCard/WeatherCard.tsx';
+import { WeatherDatePicker } from './components/WeatherDatePicker/WeatherDatePicker.tsx';
+import { WeatherFilter } from './components/AppName/WeatherFilter.tsx';
+import { useEffect, useState } from 'react';
+import { DatePickerDates } from './types.ts';
+import { data, multiselectOptions } from './data/data.ts';
 
 function App() {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const sixMonthAgoDate = new Date(currentDate.setMonth(currentMonth - 6));
 
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const threeMonthAgoDate = new Date(currentDate.setMonth(currentMonth - 3));
+  const [startDate, setStartDate] = useState<Date | null>(sixMonthAgoDate);
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(
+    multiselectOptions.map((option) => option.value)
+  );
+  const [filteredData, setFilteredData] = useState(data);
 
-    const [startDate, setStartDate] = useState<Date | null>(threeMonthAgoDate);
-    const [endDate, setEndDate] = useState<Date | null>(null);
-    const [filteredData, setFilteredData] = useState(data);
+  useEffect(() => {
+    filterData(startDate, endDate, selectedOptions);
+  }, []);
 
-    function filterDates(start: Date | null, end: Date | null) {
-        if (start && end) {
-            const filteredData = data.filter((weather) => {
-                const weatherDate = new Date(weather.date)
-                return weatherDate >= start && weatherDate <= end;
-            });
-            setFilteredData(filteredData);
-        }
+  const filterData = (
+    start: Date | null,
+    end: Date | null,
+    options: string[]
+  ) => {
+    if (start && end) {
+      const filteredData = data.filter((obj) => {
+        const weatherDate = new Date(obj.date);
+        const datesCondition = weatherDate >= start && weatherDate <= end;
+        const optionsCondition = options.includes(obj.weather);
+        return datesCondition && optionsCondition;
+      });
+      setFilteredData(filteredData);
     }
+  };
 
-    const onChange = (dates: DatePickerDates) => {
-        const [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
-        filterDates(start, end);
-    };
+  const handleOptionsChange = (newOptions: string[]) => {
+    setSelectedOptions(newOptions);
+    filterData(startDate, endDate, newOptions);
+  };
+
+  const onDateChange = (dates: DatePickerDates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    filterData(start, end, selectedOptions);
+  };
 
   return (
     <>
-        <div className={style.topSection}>
-            <AppName />
-            <WeatherDatePicker
-                startDate={startDate}
-                endDate={endDate}
-                onChange={onChange}
-            />
-        </div>
-        {filteredData.map((weather) => {
-            return <WeatherCard
-                key={weather.date}
-                date={weather.date}
-                weather={weather.weather}
-            />
-        })}
+      <div className={style.topSection}>
+        <WeatherFilter
+          onOptionsChange={handleOptionsChange}
+          selectedOptions={selectedOptions}
+        />
+        <WeatherDatePicker
+          startDate={startDate}
+          endDate={endDate}
+          onChange={onDateChange}
+        />
+      </div>
+      {filteredData.map((weather) => (
+        <WeatherCard
+          key={weather.date}
+          date={weather.date}
+          weather={weather.weather}
+        />
+      ))}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
