@@ -2,9 +2,17 @@
     margin-right: 40px;
 }
 .optionsContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+
+    @media (max-width: 1053px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 500px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 .weatherFilterHeader {
     font-size: 1.2em;
@@ -12,7 +20,7 @@
 }
 .option {
     img {
-        width: 50px;
+        width: 70px;
     }
     transition: transform 0.1s ease-in-out;
     &:hover {

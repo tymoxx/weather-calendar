@@ -61,15 +61,20 @@ function App() {
           startDate={startDate}
           endDate={endDate}
           onChange={onDateChange}
+          highlightedDates={data.map((obj) => new Date(obj.date))}
         />
       </div>
-      {filteredData.map((weather) => (
-        <WeatherCard
-          key={weather.date}
-          date={weather.date}
-          weather={weather.weather}
-        />
-      ))}
+      {filteredData.length === 0 ? (
+        <p className={style.noItems}>No items</p>
+      ) : (
+        filteredData.map((weather) => (
+          <WeatherCard
+            key={weather.date}
+            date={weather.date}
+            weather={weather.weather}
+          />
+        ))
+      )}
     </>
   );
 }

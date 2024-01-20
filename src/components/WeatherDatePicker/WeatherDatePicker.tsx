@@ -8,25 +8,36 @@ type WeatherDatePickerProps = {
   startDate: Date | null;
   endDate: Date | null;
   onChange: (dates: DatePickerDates) => void;
+  highlightedDates: Date[];
 };
 
 export const WeatherDatePicker = ({
   startDate,
   endDate,
   onChange,
+  highlightedDates,
 }: WeatherDatePickerProps) => {
-  const isSmallScreen = useMediaQuery({ maxWidth: 1053 }); // Adjust the max width as needed
+  const isMediumScreen = useMediaQuery({ maxWidth: 1053 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 500 });
   return (
     <div className={styles.dateInputWrapper}>
       <DatePicker
-        selected={startDate}
+        // selected={startDate}
         onChange={onChange}
         startDate={startDate}
         endDate={endDate}
         selectsRange
         inline
-        monthsShown={isSmallScreen ? 2 : 3}
+        monthsShown={isSmallScreen ? 1 : isMediumScreen ? 2 : 3}
         className={styles.dateInput}
+        dayClassName={(date) => {
+          return highlightedDates
+            .map((d) => d.toDateString())
+            .includes(date.toDateString())
+            ? styles.highlightedDay
+            : '';
+        }}
+        calendarStartDay={1}
       />
     </div>
   );

@@ -49,4 +49,5 @@ export const multiselectOptions = [
   { value: 'cloudy', imageSrc: './assets/cloudy.png' },
   { value: 'snow', imageSrc: './assets/snow.png' },
   { value: 'clear', imageSrc: './assets/clear.png' },
+  { value: 'windy', imageSrc: './assets/windy.png' },
 ];
