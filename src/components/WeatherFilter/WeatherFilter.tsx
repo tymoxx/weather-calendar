@@ -1,4 +1,4 @@
-import styles from './weatherFilter.module.scss';
+import styles from './WeatherFilter.module.scss';
 import { multiselectOptions } from '../../data/data.ts';
 
 export const WeatherFilter = ({
