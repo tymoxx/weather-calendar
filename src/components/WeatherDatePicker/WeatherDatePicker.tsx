@@ -22,7 +22,6 @@ export const WeatherDatePicker = ({
   return (
     <div className={styles.dateInputWrapper}>
       <DatePicker
-        // selected={startDate}
         onChange={onChange}
         startDate={startDate}
         endDate={endDate}

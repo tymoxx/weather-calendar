@@ -1,10 +1,10 @@
 import style from './App.module.scss';
 import { WeatherCard } from './components/WeatherCard/WeatherCard.tsx';
 import { WeatherDatePicker } from './components/WeatherDatePicker/WeatherDatePicker.tsx';
-import { WeatherFilter } from './components/AppName/WeatherFilter.tsx';
-import { useEffect, useState } from 'react';
+import { WeatherFilter } from './components/WeatherFilter/WeatherFilter.tsx';
+import { useEffect, useMemo, useState } from 'react';
 import { DatePickerDates } from './types.ts';
-import { data, multiselectOptions } from './data/data.ts';
+import { data, weatherOptions } from './data/data.ts';
 
 function App() {
   const currentDate = new Date();
@@ -13,9 +13,12 @@ function App() {
 
   const [startDate, setStartDate] = useState<Date | null>(sixMonthAgoDate);
   const [endDate, setEndDate] = useState<Date | null>(new Date());
-  const [selectedOptions, setSelectedOptions] = useState<string[]>(
-    multiselectOptions.map((option) => option.value)
+  const allWeatherOptions = useMemo(
+    () => weatherOptions.map((option) => option.value),
+    []
   );
+  const [selectedOptions, setSelectedOptions] =
+    useState<string[]>(allWeatherOptions);
   const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
@@ -43,7 +46,7 @@ function App() {
     filterData(startDate, endDate, newOptions);
   };
 
-  const onDateChange = (dates: DatePickerDates) => {
+  const handleDateChange = (dates: DatePickerDates) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
@@ -51,8 +54,8 @@ function App() {
   };
 
   return (
-    <>
-      <div className={style.topSection}>
+    <main>
+      <section className={style.topSection}>
         <WeatherFilter
           onOptionsChange={handleOptionsChange}
           selectedOptions={selectedOptions}
@@ -60,12 +63,12 @@ function App() {
         <WeatherDatePicker
           startDate={startDate}
           endDate={endDate}
-          onChange={onDateChange}
+          onChange={handleDateChange}
           highlightedDates={data.map((obj) => new Date(obj.date))}
         />
-      </div>
+      </section>
       {filteredData.length === 0 ? (
-        <p className={style.noItems}>No items</p>
+        <p className={style.noItems}>No items...</p>
       ) : (
         filteredData.map((weather) => (
           <WeatherCard
@@ -75,7 +78,7 @@ function App() {
           />
         ))
       )}
-    </>
+    </main>
   );
 }
 

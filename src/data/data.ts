@@ -43,7 +43,7 @@ export const data = [
   { date: '2025-01-08', weather: 'windy' },
 ];
 
-export const multiselectOptions = [
+export const weatherOptions = [
   { value: 'sunny', imageSrc: './assets/sunny.png' },
   { value: 'partly cloudy', imageSrc: './assets/partly cloudy.png' },
   { value: 'cloudy', imageSrc: './assets/cloudy.png' },

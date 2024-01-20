@@ -1,5 +1,5 @@
 import styles from './WeatherFilter.module.scss';
-import { multiselectOptions } from '../../data/data.ts';
+import { weatherOptions } from '../../data/data.ts';
 
 export const WeatherFilter = ({
   onOptionsChange,
@@ -19,21 +19,19 @@ export const WeatherFilter = ({
   };
 
   return (
-    <div className={styles.optionsWrapper}>
-      <h3 className={styles.weatherFilterHeader}>Filter by weather</h3>
+    <fieldset className={styles.optionsWrapper}>
+      <legend className={styles.weatherFilterHeader}>Filter by weather</legend>
       <div className={styles.optionsContainer}>
-        {multiselectOptions.map((option) => (
-          <div
+        {weatherOptions.map((option) => (
+          <button
             key={option.value}
             className={`${styles.option} ${selectedOptions.includes(option.value) ? styles.selected : ''}`}
             onClick={() => handleChange(option.value)}
           >
             <img src={option.imageSrc} alt={`${option.value} image`} />
-          </div>
+          </button>
         ))}
       </div>
-
-      {/*<p>Selected options: {selectedOptions.join(', ')}</p>*/}
-    </div>
+    </fieldset>
   );
 };

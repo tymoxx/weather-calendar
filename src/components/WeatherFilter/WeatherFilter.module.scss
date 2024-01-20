@@ -1,5 +1,6 @@
 .optionsWrapper {
     margin-right: 40px;
+    border: none;
 }
 .optionsContainer {
     display: grid;
@@ -16,15 +17,21 @@
 }
 .weatherFilterHeader {
     font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
     color: #444;
 }
 .option {
+    border: none;
+    background: none;
+    cursor: pointer;
+
     img {
         width: 70px;
     }
+
     transition: transform 0.1s ease-in-out;
     &:hover {
-        cursor: pointer;
         transform: scale(1.2);
     }
     filter: grayscale(100%);

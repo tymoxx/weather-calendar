@@ -8,7 +8,7 @@ type WeatherCardProps = {
 export const WeatherCard = ({ date, weather }: WeatherCardProps) => {
   return (
     <div className={styles.weatherCard}>
-      <span className={styles.date}>{date}</span>
+      <time className={styles.date}>{date}</time>
       <div className={styles.weatherStatusSection}>
         <img
           className={styles.icon}

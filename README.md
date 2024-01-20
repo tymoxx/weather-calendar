@@ -12,4 +12,4 @@
 - [x] Added prettier and eslint
 - [x] "No items" message when nothing is selected
 - [x] Highlighted dates with available weather data 
-- [x] Responsive
+- [x] Responsive layout
