@@ -1,0 +1,22 @@
+.dateInputWrapper {
+    margin: 10px;
+
+    .dateInput {
+        font-size: 1.2em;
+        min-width: 205px;
+        border: 2px solid transparent;
+        border-bottom: 2px solid #ccc;
+        background-color: transparent;
+        transition: border-bottom-color 0.3s ease-in-out;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+            border-bottom-color: #646464;
+        }
+    }
+}
+
+
+
+

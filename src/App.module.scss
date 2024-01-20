@@ -1,0 +1,13 @@
+.topSection {
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+
+  @media (max-width: 500px) {
+      flex-direction: column;
+  }
+}
